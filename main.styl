@@ -1,0 +1,260 @@
+@import "bootstrap.css"
+
+$buffer = 20px;
+$radius = 4px;
+$primaryColor = #FF2A68; /* #e53c6c; */
+$secondaryColor = #0da0cc;
+$warningColor = #FF2D55;
+/* #e53c6c #E8518B */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #fafafa;
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 30px;
+  color: #333;
+  margin: 0;
+}
+
+.pullMe {
+  cursor: pointer;
+  .bounce {
+    display: inline-block
+  }
+}
+
+.warning {
+  padding: 20px;
+  border: 1px solid #ededed;
+  border-left: 5px solid $warningColor;
+  border-radius: 3px;
+
+  p {
+    padding-bottom: 0;
+  }
+
+  h3 {
+    color: $warningColor;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.notice {
+  padding: 20px;
+  border: 1px solid #ededed;
+  border-left: 5px solid $secondaryColor;
+  border-radius: 3px;
+
+  p {
+    padding-bottom: 0;
+  }
+
+
+  h3 {
+    color: $secondaryColor;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.example {
+  padding-bottom: 20px;
+}
+
+.example.button-group {
+  margin-bottom: 45px;
+}
+
+h1 {
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: $primaryColor;
+  margin-top: 10px;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  color: $primaryColor;
+}
+
+a[href]:hover {
+  color: $primaryColor;
+  text-decoration: underlined;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: 700;
+  cursor: default;
+  margin-top: -3px;
+  position: absolute;
+  top: 0;
+  left: 40px;
+  line-height: 76px;
+
+  a:link, a:visited {
+    text-decoration: none;
+    color: #333;
+  }
+}
+
+.toc {
+  padding-top: 40px;
+  ul {
+    margin: 5px 0 20px 0;
+    padding: 0;
+  }
+  li {
+    list-style:none;
+  }
+  h4 {
+    font-size: 20px;
+    margin: 0;
+  }
+}
+
+code, pre {
+  font-size: 16px;
+}
+
+h2 {
+  color: $primaryColor;
+}
+
+.button-group {
+  text-align:center;
+  margin: 20px 0;
+  width: 100%;
+}
+
+a.button {
+  border: 2px solid $primaryColor;
+  border-radius: 8px;
+  padding: 10px 15px 10px 15px;
+  font-size: 20px;
+  font-weight: 400;
+  color: $primaryColor;
+  margin: 0 20px 0 0;
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+nav {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: white;
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, .1);
+}
+
+.preview {
+  background-image: url(../images/iphone_frame.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color:#f0f0f0;
+  position: fixed;
+  right: 0;
+  top: 70px;
+  bottom: 0;
+  text-align:center;
+
+  .item {
+    background-color: #999;
+    width: 276px;
+    height: 416px;
+    position: absolute;
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    border: 0;
+  }
+}
+
+.landing {
+  padding-bottom: 70px;
+  text-align: center;
+
+  h1 {
+    color: #333;
+  }
+
+  .button-group {
+    margin-top: 50px;
+  }
+}
+
+@media (min-width: 768px) {
+
+  .landing {
+    padding-top: 70px;
+  }
+
+  .container {
+    width: 100%;
+    position: relative;
+    max-width: 960px;
+  }
+
+  body {
+    margin-top: 80px;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .landing h1 {
+    font-size: 50px;
+  }
+
+  .container {
+    width: 100%;
+    position: fixed;
+    max-width: 960px;
+    top: 70px;
+    bottom: 0px;
+    left: 50%;
+    padding-top: 10px;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -120px;
+}
+
+.small-note {
+  font-size: 14px;
+}
+
+.get-in-touch {
+}
