@@ -11,7 +11,7 @@ I've broken this checklist down into three main categories:
 ##UX and UI
 
 ###Don't put touch interactions too close to edges of the screen.
-
+<a href="images/edge_diagram.png"><img class="right-align" src="images/edge_diagram_small.png" /></a>
   Unfortunately, mobile web apps are considered second class citizens relative
 to native apps. They're frequently overridden by browser default touch
 interactions that you can't disable.  The "swipe from left" gesture that
@@ -21,8 +21,6 @@ Now to activate.  When you're designing your app, ensure that there is enough
 margin between the main content container and the sides of the screen that even
 the fattest of fingers won't accidentally trigger the host browser or OS's edge
 swipe gestures.
-
-<img src="images/edge_diagram.png" />
 
 ###Remove the click delay
 
@@ -36,7 +34,7 @@ events, and immediately fires click events without the delay inherent in the
 default behavior.
 
 ###Better fixed header when input is focused.
-
+<a href="images/header_detached.png"><img class="right-align" src="images/header_detached_small.png" /></a>
   How much do you hate it when your fixed header unfixes itself any time the
 user brings up their onscreen keyboard? A lot? Me too.
 
@@ -52,10 +50,9 @@ the next technique for Preventing Overscroll.
   WARNING: This will cause the double tap at the top of mobile safari to no
   longer scroll to the top of the page, since it's no longer the body scrolling.
 
-<img src="images/header_detached.png" />
 
 ###Prevent overscroll on the body.
-
+<a href="images/overscroll.png"><img class="right-align" src="images/overscroll_small.png" /></a>
   If you want your web app to feel app-like, you have to get rid of overscroll.
 Overscroll is what occurs when a user is able to pull a scroll container past
 it's boundary.  When this happens on the body element, an ugly grey background
@@ -70,7 +67,7 @@ appears and the entire viewport shifts.
   It's also possible to fix this issue in plain javascript. An example is
 available at [this repo](https://github.com/luster-io/prevent-overscroll).
 
-<img src="images/overscroll.png" />
+
 
 ###Make things that shouldn't be selectable, unselectable
 
@@ -103,7 +100,7 @@ scrolling, instead of ending the scroll the moment the user takes their finger
 off the page.
 
 ###Get rid of ugly grey tap highlight.
-
+<a href="images/tap_highlight.png"><img class="right-align" src="images/tap_highlight_small.png" /></a>
   By default, mobile web browsers display a tap highlight, so that users get
 feedback when they tap something.  Unfortunately it looks awful and is a dead
 giveaway that your app isn't native.
@@ -116,8 +113,6 @@ the default highlight.
     -webkit-tap-highlight-color: rgba(0,0,0,0);
   }
   ```
-
-<img src="images/tap_highlight.png" />
 
 ###Use `:active` states or add active classes
 
