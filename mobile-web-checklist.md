@@ -392,8 +392,9 @@ that will be difficult to abstract and cache.
 
 ####FIN
 
-If you go through and do all of the things on this list.  More likely than not, you'll have a created a great mobile web experience.
+If you go through and do all of the things on this list, more likely than not,
+you'll have a created a great mobile web experience.
 
-Thanks to Seth Bannon (@sethbannon) for providing feedback on drafts of this post.
+Thanks to Seth Bannon ([@sethbannon](http://twitter.com/sethbannon)) for providing feedback on drafts of this post.
 
 
