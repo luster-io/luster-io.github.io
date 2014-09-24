@@ -1,6 +1,6 @@
-  This is a list of guidelines I've been compiling over the last couple years while building high-performance mobile frontends, as well as building the open source library [impulse](http://impulse.luster.io).  Some of these are broadly applicable to any mobile website, some are specifically for people building apps.
+  This is a list of guidelines we've been compiling over the last couple years while building high-performance mobile frontends, as well as building the open source library [impulse](http://impulse.luster.io).  Some of these are broadly applicable to any mobile website, some are specifically for people building apps.
 
-I've broken this checklist down into three main categories:
+We've broken this checklist down into three main categories:
 
   1. UX and UI
   2. Performance
@@ -8,8 +8,10 @@ I've broken this checklist down into three main categories:
 
 ##UX and UI
 
-###Don't put touch interactions too close to edges of the screen
-<a href="images/edge_diagram.png"><img class="right-align" src="images/edge_diagram_small.png" /></a>
+###Don't put touch interactions too close to edges of the screen.
+
+<a href="/images/edge_diagram.png"><img class="right-align" src="/images/edge_diagram_small.png" /></a>
+
   Unfortunately, mobile web apps are considered second class citizens relative
 to native apps. They're frequently overridden by browser default touch
 interactions that you can't disable.  The "swipe from left" gesture that
@@ -32,7 +34,8 @@ events, and immediately fires click events without the delay inherent in the
 default behavior.
 
 ###Absolute position your fixed header
-<a href="images/header_detached.png"><img class="right-align" src="images/header_detached_small.png" /></a>
+<a href="/images/header_detached.png"><img class="right-align" src="/images/header_detached_small.png" /></a>
+
   How much do you hate it when your fixed header unfixes itself any time the
 user brings up their onscreen keyboard? A lot? Me too.
 
@@ -57,8 +60,9 @@ scrolling, instead of ending the scroll the moment the user takes their finger
 off the page.
 
 
-###Prevent overscroll on the body
-<a href="images/overscroll.png"><img class="right-align" src="images/overscroll_small.png" /></a>
+###Prevent overscroll on the body.
+<a href="/images/overscroll.png"><img class="right-align" src="/images/overscroll_small.png" /></a>
+
   If you want your web app to feel app-like, you have to get rid of overscroll.
 Overscroll is what occurs when a user is able to pull a scroll container past
 it's boundary.  When this happens on the body element, an ugly grey background
@@ -66,9 +70,9 @@ appears and the entire viewport shifts.
 
   You can fix this easily in cordova/phonegap with this simple xml config.
 
-  ```
-  <preference name="DisallowOverscroll" value="true" />
-  ```
+```markup
+<preference name="DisallowOverscroll" value="true" />
+```
 
   It's also possible to fix this issue in plain javascript. An example is
 available at [this repo](https://github.com/luster-io/prevent-overscroll).
@@ -85,19 +89,30 @@ accidentally triggered.
   Adding `-webkit-touch-callout: none;` to an element prevents a tap and hold from
 opening a context menu on the link or image.
 
-  ```css
-  user-select: none;
-  -{prefix}-user-select: none;
-  -webkit-touch-callout: none;
-  ```
+```css
+user-select: none;
+-{prefix}-user-select: none;
+-webkit-touch-callout: none;
+```
+
+  On Android, to stop these menu's from showing up, you can do:
 
 ```javascript
 if(navigator.userAgent.match(/Android/i))
-  window.addEventListener('contextmenu', function (e) { e.preventDefault() })
+  noContextMenu.addEventListener('contextmenu', function (e) { e.preventDefault() })
 ```
 
-###Get rid of the ugly grey tap highlight.
-<a href="images/tap_highlight.png"><img class="right-align" src="images/tap_highlight_small.png" /></a>
+###Always use momentum scrolling
+
+  Now that our scrolling is in a seperate container, it lost its momentum! To
+get it back, we have to add `-webkit-overflow-scrolling: touch;` to the
+container with `overflow: scroll` on it. This gives the element momentum
+scrolling, instead of ending the scroll the moment the user takes their finger
+off the page.
+
+###Get rid of ugly grey tap highlight.
+<a href="/images/tap_highlight.png"><img class="right-align" src="/images/tap_highlight_small.png" /></a>
+
   By default, mobile web browsers display a tap highlight, so that users get
 feedback when they tap something.  Unfortunately it looks awful and is a dead
 giveaway that your app isn't native.
@@ -105,11 +120,11 @@ giveaway that your app isn't native.
   The really easy solution is to add this to your css.  You NEVER want
 the default highlight.
 
-  ```css
-  * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-  }
-  ```
+```css
+* {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+```
 
 ###Use `:active` states or add active classes
 
@@ -118,11 +133,11 @@ when they tap something that's tappable.
 
   The easy way to do this is to add `:active` states to tappable things.
 
-  ```
-  button:active {
-    color: green;
-  }
-  ```
+```css
+button:active {
+  color: green;
+}
+```
 
 ###Hide chrome when your app is added to the homescreen
 
@@ -130,14 +145,14 @@ when they tap something that's tappable.
 the experience even better for them?  You can remove the address bar, forward
 and back button, and other miscellaneous browser controls with a few meta tags.
 
-  ```html
-  <!-- android -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <!-- iOS -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="translucent-black">
-  <meta name="apple-mobile-web-app-title" content="My App">
-  ```
+```markup
+<!-- android -->
+<meta name="mobile-web-app-capable" content="yes">
+<!-- iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="translucent-black">
+<meta name="apple-mobile-web-app-title" content="My App">
+```
 
 ###Hide with opacity or translate off screen if you plan to animate an element
 
@@ -154,13 +169,13 @@ ready to go, and won't have an initial jank when you pull it onscreen.
   But you shouldn't need to.
 
   Unless you're trying to do something crazy fancy like paralax, or you want
-things to whizz, spin, or spring in as the user scrolls down.  However, I've
+things to whizz, spin, or spring in as the user scrolls down.  However, we've
 never seen entrance effects or paralax done well on mobile, so be prepared for
 it not to work out.  The danger is that not only do your neat effects jank, but
 your scrolling janks out along with them.
 
   Even though you can build scrolling that feels very similar to native with a library
-like Impulse, there are still problems with implementing your own scrolling.
+like [Impulse](http://impulse.luster.io), there are still problems with implementing your own scrolling.
 One is that you're limiting the length of your content.  Mobile browsers do some
 complex things to make scrolling smooth. For example, they only load some of the painted content, 
 and asyncronously paint and load the content in.  If you do scrolling yourself, you don't get that.  
@@ -172,9 +187,9 @@ paint portions of it as you scroll, and there is no way that's going to be smoot
   If you're building an app that you want to feel native, you probably don't
 want to allow the user to arbitrarily zoom in and out.
 
-  ```
-  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
-  ```
+```markup
+<meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+```
 
   If you use this meta tag, it will prevent the user from scaling and will also
 prevent scaling due to input focus and scaling due to device orientation.
@@ -192,9 +207,9 @@ you.
 
   You can turn cleartype on in IE-based browsers so that text in your mobile app looks nicer on the small screen.
 
-  ```
-  <meta http-equiv="cleartype" content="on">
-  ```
+```markup
+<meta http-equiv="cleartype" content="on">
+```
 
 ## Performance
 
@@ -211,21 +226,24 @@ you.
 ###Add translateZ or will-change to animated elements
 
   To improve the performance of your animations, add `transform: translateZ`
-and/or `will-change: transform` or `will-change: opacity`  This lets the
+and/or `will-change: transform` or `will-change: opacity`.  This lets the
 browser know that you're going to be animating this property and that it should
 upload a layer to be composited on the GPU.
 
-###Don't use jquery animate or fade
+###Don't use jQuery animate or fade
 
-  Jquery Animate uses a setInterval instead of requestAnimationFrame, and
+  JQuery animate uses a setInterval instead of requestAnimationFrame, and
 doesn't have good support for animating css transforms, which are bascically
 the only thing you can safely animate on mobile (except opacity). Just use CSS
 animations, transitions, Velocityjs and/or Impulse.
 
 ###Don't resize images clientside
 
-  When on a mobile device, or a high pixel density desktop display, or any
-display really, avoid resizing images on the client.
+  Browsers have a limited cache size for resized images.  Once that cache fills
+up, older images get evacuated from the cache.  This means that, as the user
+scrolls up and down the page, they will constantly run into images that are not
+in the cache.  These images will have to be decoded and resized again on the
+fly.
 
   The way it works is this.  The browser decodes the image from whatever
 format it's in (jpeg, png, whatever), into a bitmap, which it then resizes and
@@ -237,8 +255,9 @@ as you're scrolling up and down the page, you'll constantly run into images
 that are not in the cache.  These will have to be decoded and resized again on
 the fly.
 
-  This on the fly resize will cause one of two things, either it will cause
-your scrolling to jank, or it'll cause the scrollable area on your mobile site
+
+  This resize will cause one of two things: either it will cause your 
+scrolling to jank, or it'll cause the scrollable area on your mobile site
 to be white while the mobile browser draws the image in the background.  This
 isn't ideal, and will result in your users not being able to see what they're
 scrolling through since it can't be loaded fast enough. The solution is to
@@ -259,13 +278,11 @@ off the screen or transparent.  Then, in a `requestAnimationFrame` call, do
 your animation.  That's it!  The requestAnimationFrame callback won't be called
 until the paint is done, and we're ready to animate.
 
-    CAVEAT: if you're rendering a large page, your animation won't jank, but it
-    may a be long wait before the animation runs.  
-
-  This is just because painting a lot of content takes a long time.  
-Generally when this is the case, try to just paint everything "above the fold"
-before you animate the view in, and then start painting everything else in asyncronously
-once it's loaded.
+  Caveat: if you're rendering a large page, your animation won't jank, but it
+may a long wait before the animation runs.  This is just because painting a lot
+of content takes a long time.  Generally when this is the case, try to just
+paint everything "above the fold" before you animate the view in, and then start
+painting everything else in asyncronously once it's loaded.
 
 ###Don't do work in scroll or touch event handlers
 
@@ -292,25 +309,25 @@ homescreen](https://developer.apple.com/library/ios/documentation/appleapplicati
 iOS and Android make this possible, for a variety of resolution and size
 combinations.
 
-  ```html
-  <!-- android -->
-  <link rel="shortcut icon" sizes="196x196" href="icon-196x196.png">
+```markup
+<!-- android -->
+<link rel="shortcut icon" sizes="196x196" href="icon-196x196.png">
 
-  <!-- iOS -->
-  <link rel="apple-touch-icon" href="touch-icon-iphone.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
-  ```
+<!-- iOS -->
+<link rel="apple-touch-icon" href="touch-icon-iphone.png">
+<link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png">
+<link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png">
+<link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
+```
 
 ###Add a splash screen
 
   iOS goes even further by displaying a startup image on webapp load, like the
 user would see during the loading period of a native app.
 
-  ```html
-  <link rel="apple-touch-startup-image" href="img/l/splash.png">
-  ```
+```markup
+<link rel="apple-touch-startup-image" href="img/l/splash.png">
+```
 
 ###Change the homescreen title
 
@@ -318,11 +335,11 @@ user would see during the loading period of a native app.
 title of the page. This can be overridden on iOS devices with the
 apple-mobile-web-app-title tag.
 
-  ```html
-  <meta name="apple-mobile-web-app-title" content="Luster">
-  ```
+```markup
+<meta name="apple-mobile-web-app-title" content="Luster">
+```
 
-  Android, which doesn't have a comparable alternative, will set the title to your page's &lt;title&gt;.
+  Android, doesn't have a comparable alternative -- it will be set to your page's &lt;title&gt;.
 
 ###Provide your own navigation
 
@@ -338,7 +355,7 @@ each page.
   If users are going to add your app to their homescreens, it had better work
 whether or not they're connected to the internet. That's where app-cache comes
 in. The application cache allows app writers to define what resources they want
-the user's device to save and guarantee that necessary assets will be available
+the user's device to save and guarantees that necessary assets will be available
 when the user is no longer connected to the internet. More information can be
 found
 [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache).
@@ -365,10 +382,18 @@ https://developer.apple.com/library/ios/documentation/AppleApplications/Referenc
 ###Design for offline from the beginning.
 
   The best way to prepare for offline operation is to design for it from the
-beginning. There are no specific guidelines in this section (which is why I'm
+beginning. There are no specific guidelines in this section (which is why we're
 putting it last) and implementation will vary widely depending on the nature
 and requirements of the app in question. That said, the more work you can do up
 front, the better. The sooner you can identify what data is necessary, how it
 will be used, and which transactions with the server are necessary for the app
 to function, the less likely it will be that the app will rely on functionality
 that will be difficult to abstract and cache.
+
+####FIN
+
+If you go through and do all of the things on this list.  More likely than not, you'll have a created a great mobile web experience.
+
+Thanks to Seth Bannon (@sethbannon) for providing feedback on drafts of this post.
+
+

@@ -2,10 +2,12 @@ doctype
 html
   head
     link(rel="stylesheet" href="/main.css")
+    link(rel="stylesheet" href="/prism.css")
   body
     nav
       .logo Luster
       a.impulse(href="http://impulse.luster.io") Impulse
-      a.impulse(href="http://blog.luster.io") Blog
+      a.impulse(href="/blog.html") Blog
 
     != yield
+    script(src="/prism.js")
