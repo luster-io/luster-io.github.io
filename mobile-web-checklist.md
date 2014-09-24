@@ -88,9 +88,11 @@ user-select: none;
 -webkit-touch-callout: none;
 ```
 
+  On Android, to stop these menu's from showing up, you can do:
+
 ```javascript
 if(navigator.userAgent.match(/Android/i))
-  window.addEventListener('contextmenu', function (e) { e.preventDefault() })
+  noContextMenu.addEventListener('contextmenu', function (e) { e.preventDefault() })
 ```
 
 ###Always use momentum scrolling
@@ -364,7 +366,7 @@ https://developer.apple.com/library/ios/documentation/AppleApplications/Referenc
 ###Design for offline from the beginning.
 
   The best way to prepare for offline operation is to design for it from the
-beginning. There are no specific guidelines in this section (which is why I'm
+beginning. There are no specific guidelines in this section (which is why we're
 putting it last) and implementation will vary widely depending on the nature
 and requirements of the app in question. That said, the more work you can do up
 front, the better. The sooner you can identify what data is necessary, how it
