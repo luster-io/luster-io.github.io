@@ -8,7 +8,7 @@ I've broken this checklist down into three main categories:
 
 ##UX and UI
 
-###Don't put touch interactions too close to edges of the screen.
+###Don't put touch interactions too close to edges of the screen
 <a href="images/edge_diagram.png"><img class="right-align" src="images/edge_diagram_small.png" /></a>
   Unfortunately, mobile web apps are considered second class citizens relative
 to native apps. They're frequently overridden by browser default touch
@@ -31,7 +31,7 @@ like fastClick.
 events, and immediately fires click events without the delay inherent in the
 default behavior.
 
-###Better fixed header when input is focused.
+###Better fixed header when input is focused
 <a href="images/header_detached.png"><img class="right-align" src="images/header_detached_small.png" /></a>
   How much do you hate it when your fixed header unfixes itself any time the
 user brings up their onscreen keyboard? A lot? Me too.
@@ -49,14 +49,14 @@ the next technique for Preventing Overscroll.
   longer scroll to the top of the page, since it's no longer the body scrolling.
 
 
-###Prevent overscroll on the body.
+###Prevent overscroll on the body
 <a href="images/overscroll.png"><img class="right-align" src="images/overscroll_small.png" /></a>
   If you want your web app to feel app-like, you have to get rid of overscroll.
 Overscroll is what occurs when a user is able to pull a scroll container past
 it's boundary.  When this happens on the body element, an ugly grey background
 appears and the entire viewport shifts.
 
-  You can fix this really easily in cordova/phonegap with this simple xml config.
+  You can fix this easily in cordova/phonegap with this simple xml config.
 
   ```
   <preference name="DisallowOverscroll" value="true" />
@@ -89,7 +89,7 @@ if(navigator.userAgent.match(/Android/i))
   window.addEventListener('contextmenu', function (e) { e.preventDefault() })
 ```
 
-###Always use momentum scrolling.
+###Always use momentum scrolling
 
   Now that our scrolling is in a seperate container, it lost its momentum! To
 get it back, we have to add `-webkit-overflow-scrolling: touch;` to the
@@ -125,7 +125,7 @@ when they tap something that's tappable.
   }
   ```
 
-###Hide chrome when your app is added to the homescreen.
+###Hide chrome when your app is added to the homescreen
 
   If someone likes your app enough to add it to their homescreen, why not make
 the experience even better for them?  You can remove the address bar, forward
@@ -150,7 +150,7 @@ by setting `opacity` to `0` or by translating the item off screen
 ready to go, and won't have an initial jank, when you pull it onscreen.
 
 
-###Don't use a custom scroll implementation unless you REALLY need to.
+###Don't use a custom scroll implementation unless you REALLY need to
 
   But you shouldn't need to.
 
@@ -163,14 +163,14 @@ your scrolling janks out along with them.
   There are a few reasons why it wouldn't work.  Even though you can build
 scrolling that feels very similar to native with something like Impulse, there
 are still problems with implementing your own scrolling.  One is that you're
-limiting the length of your content.  Mobile browsers do some crazy things to
+limiting the length of your content.  Mobile browsers do some complex things to
 make scrolling smooth.  They only load some of the painted content, and
 asyncronously paint and load the content in.  If you do scrolling yourself, you
-don't get that.  Your scrollable area has to fit entirely into gpu memory.  If
+don't get that.  Your scrollable area has to fit entirely into GPU memory.  If
 it doesn't you're going to have to paint portions of it as you scroll, and
 there is no way that's going to be smooth.
 
-###Prevent user scaling.
+###Prevent user scaling
 
   If you're building an app that you want to feel native, you probably don't
 want to allow the user to arbitrarily zoom in and out.
@@ -186,12 +186,12 @@ prevent scaling due to input focus and scaling due to device orientation.
 ###Test your back and forward buttons and linkability
 
   Even though your app provides it's own navigation, you can't just ignore the
-browser's default navigation. Not to mention, if you launch your app on HN, the
+browser's default navigation. Not to mention, if you launch your app on Hacker News, the
 top comments will revolve around the fact that your app breaks back button
 functionality.  Learn to use pushState, or find a framework that handles it for
 you.
 
-### IE cleartype.
+### IE cleartype
 
   You can turn cleartype on in IE-based browsers so that text in your mobile app looks nicer on the small screen.
 
@@ -205,27 +205,27 @@ you.
   It's much easier to build something that's performant from day one, than
   to build something that "works" and then trying to optimize it.  If something isn't performing, try to understand right away, before you have multiple confounding performance issues that are nearly impossible to debug, or have become integral to the way your app functions.
 
-###Only animate transforms and opacity.
+###Only animate transforms and opacity
 
   This is a big one.  Animating properties like width, height, box-shadow, or anything that isn't `transform` or `opacity` is not advised. Animating any other property will cause repaints and/or reflows that will tank performance.Your desktop maybe be powerful enough to handle repainting your page as it changes 60 times per second, but your users' phones will not be, resulting in an app that feels sluggish and unresponsive.
 
   This may change as mobile browsers are improved and optimized.  In the newest versions of Chrome for Android, if you specify a special meta tag, you can animate a lot of formerly slow properties at 60fps.  However, at the time of this writing it's still slow in most browsers, so it's probably best to stick to `transform` and `opacity` for now.
 
-###Add translateZ or will-change to animated elements.
+###Add translateZ or will-change to animated elements
 
   To improve the performance of your animations, add `transform: translateZ`
 and/or `will-change: transform` or `will-change: opacity`  This lets the
 browser know that you're going to be animating this property and that it should
 upload a layer to be composited on the GPU.
 
-###Don't use jquery animate or fade.
+###Don't use jquery animate or fade
 
   Jquery Animate uses a setInterval instead of requestAnimationFrame, and
 doesn't have good support for animating css transforms, which are bascically
 the only thing you can safely animate on mobile (except opacity). Just use CSS
 animations, transitions, Velocityjs and/or Impulse.
 
-###Don't resize images clientside.
+###Don't resize images clientside
 
   When on a mobile device, or a high pixel density desktop display, or any
 display really, avoid resizing images on the client.
@@ -247,7 +247,7 @@ isn't ideal, and will result in your users not being able to see what they're
 scrolling through, because it can be loaded fast enough. The solution is to
 serve and download images at the resolution they'll be displayed.
 
-###Paint before you animate.
+###Paint before you animate
 
   Like we said previously, one of the keys to fast animations is to ensure that
 your animations aren't competing with repaints. Repaints not caused directly by
@@ -268,7 +268,7 @@ of content takes a long time.  Generally when this is the case, I try to just
 paint everything "above the fold" before I animate the view in, and then start
 painting everything else in asyncronously once it's loaded.
 
-###Don't do work in scroll or touch event handlers.
+###Don't do work in scroll or touch event handlers
 
   You may be tempted to set style properties in event handlers.  These events
 happen much more often than you draw to the screen.  This means you're causing
@@ -285,7 +285,7 @@ which case the browser would have to immediately stop scrolling.
 
 ##Homescreen and Offline
 
-###Setup touch icons for the user's homescreen.
+###Setup touch icons for the user's homescreen
 
   A key component of the native experience is the [ability to launch the app
 via a pretty icon on the user's
@@ -313,7 +313,7 @@ user would see during the loading period of a native app.
   <link rel="apple-touch-startup-image" href="img/l/splash.png">
   ```
 
-###Change homescreen title.
+###Change homescreen title
 
   iOS and Android will, by default, set the title of the homescreen icon to the
 title of the page. This can be overridden on iOS devices with the
