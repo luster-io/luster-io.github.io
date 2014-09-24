@@ -354,6 +354,14 @@ when the user is no longer connected to the internet. More information can be
 found
 [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache).
 
+  Soon you'll be able to create a ServiceWorker, which is a more powerful way
+to do asset caching.  Instead of a manifest where you list out everything
+you'll ever want cached, you write a worker that responds to requests for
+resources.  Then you can resolve the resource from the network, or from a
+cache at your discretion.
+
+[ServiceWorker explained.](https://github.com/slightlyoff/ServiceWorker/blob/master/explainer.md)
+
 ###Offline Data
 
   The user's data can be stored offline as well. Saving some data in
