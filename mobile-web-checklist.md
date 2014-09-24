@@ -214,37 +214,30 @@ you.
 ###Add translateZ or will-change to animated elements
 
   To improve the performance of your animations, add `transform: translateZ`
-and/or `will-change: transform` or `will-change: opacity`  This lets the
+and/or `will-change: transform` or `will-change: opacity`.  This lets the
 browser know that you're going to be animating this property and that it should
 upload a layer to be composited on the GPU.
 
-###Don't use jquery animate or fade
+###Don't use jQuery animate or fade
 
-  Jquery Animate uses a setInterval instead of requestAnimationFrame, and
+  JQuery animate uses a setInterval instead of requestAnimationFrame, and
 doesn't have good support for animating css transforms, which are bascically
 the only thing you can safely animate on mobile (except opacity). Just use CSS
 animations, transitions, Velocityjs and/or Impulse.
 
 ###Don't resize images clientside
 
-  When on a mobile device, or a high pixel density desktop display, or any
-display really, avoid resizing images on the client.
-
-    The way it works is this.  The browser decodes the image from whatever
-format it's in (jpeg, png, whatever), into a bitmap, which it then resizes and
-caches.
-
-  However, browsers have a limited cache size for resized images.  Once that
-cache fills up, the older ones get evacuated from the cache.  This means that,
-as you're scrolling up and down the page, you'll constantly run into images
-that are not in the cache.  These will have to be decoded and resized again on
-the fly.
+  Browsers have a limited cache size for resized images.  Once that cache fills
+up, older images get evacuated from the cache.  This means that, as the user
+scrolls up and down the page, they will constantly run into images that are not
+in the cache.  These images will have to be decoded and resized again on the
+fly.
 
     This on the fly resize will cause one of two things, either it will cause
 your scrolling to jank, or it'll cause the scrollable area on your mobile site
 to be white while the mobile browser draws the image in the background.  This
 isn't ideal, and will result in your users not being able to see what they're
-scrolling through, because it can be loaded fast enough. The solution is to
+scrolling through, because it can't be loaded fast enough. The solution is to
 serve and download images at the resolution they'll be displayed.
 
 ###Paint before you animate
@@ -263,9 +256,9 @@ your animation.  That's it!  The requestAnimationFrame callback won't be called
 until the paint is done, and we're ready to animate.
 
     CAVEAT: if you're rendering a large page, your animation won't jank, but it
-may a long wait before the animation runs.  This is just because painting a lot
-of content takes a long time.  Generally when this is the case, I try to just
-paint everything "above the fold" before I animate the view in, and then start
+may be a long wait before the animation runs.  This is because painting a lot
+of content takes a long time.  When this is the case, try to just
+paint everything "above the fold" before you animate the view in, and then start
 painting everything else in asyncronously once it's loaded.
 
 ###Don't do work in scroll or touch event handlers
@@ -323,7 +316,7 @@ apple-mobile-web-app-title tag.
   <meta name="apple-mobile-web-app-title" content="Luster">
   ```
 
-  Android, doesn't have a comparable alternative, it will be set to your pages &lt;title&gt;.
+  Android, doesn't have a comparable alternative -- it will be set to your page's &lt;title&gt;.
 
 ###Provide your own navigation
 
@@ -339,7 +332,7 @@ each page.
   If users are going to add your app to their homescreens, it had better work
 whether or not they're connected to the internet. That's where app-cache comes
 in. The application cache allows app writers to define what resources they want
-the user's device to save and guarantee that necessary assets will be available
+the user's device to save and guarantees that necessary assets will be available
 when the user is no longer connected to the internet. More information can be
 found
 [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache).
