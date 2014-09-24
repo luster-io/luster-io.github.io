@@ -31,7 +31,7 @@ like fastClick.
 events, and immediately fires click events without the delay inherent in the
 default behavior.
 
-###Better fixed header when input is focused
+###Absolute position your fixed header
 <a href="images/header_detached.png"><img class="right-align" src="images/header_detached_small.png" /></a>
   How much do you hate it when your fixed header unfixes itself any time the
 user brings up their onscreen keyboard? A lot? Me too.
@@ -47,6 +47,14 @@ the next technique for Preventing Overscroll.
 
   WARNING: This will cause the double tap at the top of mobile safari to no
   longer scroll to the top of the page, since it's no longer the body scrolling.
+
+###Always use momentum scrolling
+
+  Now that our scrolling is in a seperate container, it lost its momentum! To
+get it back, we have to add `-webkit-overflow-scrolling: touch;` to the
+container with `overflow: scroll` on it. This gives the element momentum
+scrolling, instead of ending the scroll the moment the user takes their finger
+off the page.
 
 
 ###Prevent overscroll on the body
@@ -66,8 +74,7 @@ appears and the entire viewport shifts.
 available at [this repo](https://github.com/luster-io/prevent-overscroll).
 
 
-
-###Make things that shouldn't be selectable, unselectable
+###Make things that shouldn't be selectable unselectable
 
   It's really annoying when a user trying to interact with an element causes
 the element, or the text within it, to be selected instead. Adding
@@ -75,8 +82,8 @@ the element, or the text within it, to be selected instead. Adding
 genuinely want to copy paste can cut way down on these interactions being
 accidentally triggered.
 
-  Adding `-webkit-touch-callout: none;` to a thing prevents a tap and hold from
-open a context menu on the link or image.
+  Adding `-webkit-touch-callout: none;` to an element prevents a tap and hold from
+opening a context menu on the link or image.
 
   ```css
   user-select: none;
@@ -89,15 +96,7 @@ if(navigator.userAgent.match(/Android/i))
   window.addEventListener('contextmenu', function (e) { e.preventDefault() })
 ```
 
-###Always use momentum scrolling
-
-  Now that our scrolling is in a seperate container, it lost its momentum! To
-get it back, we have to add `-webkit-overflow-scrolling: touch;` to the
-container with `overflow: scroll` on it. This gives the element momentum
-scrolling, instead of ending the scroll the moment the user takes their finger
-off the page.
-
-###Get rid of ugly grey tap highlight.
+###Get rid of the ugly grey tap highlight.
 <a href="images/tap_highlight.png"><img class="right-align" src="images/tap_highlight_small.png" /></a>
   By default, mobile web browsers display a tap highlight, so that users get
 feedback when they tap something.  Unfortunately it looks awful and is a dead
@@ -121,7 +120,7 @@ when they tap something that's tappable.
 
   ```
   button:active {
-    /* some example */
+    color: green;
   }
   ```
 
@@ -147,28 +146,26 @@ notice, don't just `display: none;` it.  If you do, it will have to be painted
 before it can appear.  So, for things like hidden menus, it's best to hide them
 by setting `opacity` to `0` or by translating the item off screen
 (`translate3d(-9999px, 0, 0)`.  That way it's painted, loaded on the GPU, and
-ready to go, and won't have an initial jank, when you pull it onscreen.
+ready to go, and won't have an initial jank when you pull it onscreen.
 
 
 ###Don't use a custom scroll implementation unless you REALLY need to
 
   But you shouldn't need to.
 
-  Unless you're trying to do something crazy fancy like paralax.  Or you want
+  Unless you're trying to do something crazy fancy like paralax, or you want
 things to whizz, spin, or spring in as the user scrolls down.  However, I've
 never seen entrance effects or paralax done well on mobile, so be prepared for
 it not to work out.  The danger is that not only do your neat effects jank, but
 your scrolling janks out along with them.
 
-  There are a few reasons why it wouldn't work.  Even though you can build
-scrolling that feels very similar to native with something like Impulse, there
-are still problems with implementing your own scrolling.  One is that you're
-limiting the length of your content.  Mobile browsers do some complex things to
-make scrolling smooth.  They only load some of the painted content, and
-asyncronously paint and load the content in.  If you do scrolling yourself, you
-don't get that.  Your scrollable area has to fit entirely into GPU memory.  If
-it doesn't you're going to have to paint portions of it as you scroll, and
-there is no way that's going to be smooth.
+  Even though you can build scrolling that feels very similar to native with a library
+like Impulse, there are still problems with implementing your own scrolling.
+One is that you're limiting the length of your content.  Mobile browsers do some
+complex things to make scrolling smooth. For example, they only load some of the painted content, 
+and asyncronously paint and load the content in.  If you do scrolling yourself, you don't get that.  
+Moreover, your scrollable area has to fit entirely into GPU memory, because if it doesn't you're going to have to
+paint portions of it as you scroll, and there is no way that's going to be smooth.
 
 ###Prevent user scaling
 
@@ -191,7 +188,7 @@ top comments will revolve around the fact that your app breaks back button
 functionality.  Learn to use pushState, or find a framework that handles it for
 you.
 
-### IE cleartype
+### Turn on IE cleartype
 
   You can turn cleartype on in IE-based browsers so that text in your mobile app looks nicer on the small screen.
 
@@ -201,7 +198,7 @@ you.
 
 ## Performance
 
-###Performance First
+###Build With Performance
   It's much easier to build something that's performant from day one, than
   to build something that "works" and then trying to optimize it.  If something isn't performing, try to understand right away, before you have multiple confounding performance issues that are nearly impossible to debug, or have become integral to the way your app functions.
 
@@ -230,7 +227,7 @@ animations, transitions, Velocityjs and/or Impulse.
   When on a mobile device, or a high pixel density desktop display, or any
 display really, avoid resizing images on the client.
 
-    The way it works is this.  The browser decodes the image from whatever
+  The way it works is this.  The browser decodes the image from whatever
 format it's in (jpeg, png, whatever), into a bitmap, which it then resizes and
 caches.
 
@@ -240,11 +237,11 @@ as you're scrolling up and down the page, you'll constantly run into images
 that are not in the cache.  These will have to be decoded and resized again on
 the fly.
 
-    This on the fly resize will cause one of two things, either it will cause
+  This on the fly resize will cause one of two things, either it will cause
 your scrolling to jank, or it'll cause the scrollable area on your mobile site
 to be white while the mobile browser draws the image in the background.  This
 isn't ideal, and will result in your users not being able to see what they're
-scrolling through, because it can be loaded fast enough. The solution is to
+scrolling through since it can't be loaded fast enough. The solution is to
 serve and download images at the resolution they'll be displayed.
 
 ###Paint before you animate
@@ -263,10 +260,12 @@ your animation.  That's it!  The requestAnimationFrame callback won't be called
 until the paint is done, and we're ready to animate.
 
     CAVEAT: if you're rendering a large page, your animation won't jank, but it
-may a long wait before the animation runs.  This is just because painting a lot
-of content takes a long time.  Generally when this is the case, I try to just
-paint everything "above the fold" before I animate the view in, and then start
-painting everything else in asyncronously once it's loaded.
+    may a be long wait before the animation runs.  
+
+  This is just because painting a lot of content takes a long time.  
+Generally when this is the case, try to just paint everything "above the fold"
+before you animate the view in, and then start painting everything else in asyncronously
+once it's loaded.
 
 ###Don't do work in scroll or touch event handlers
 
@@ -304,7 +303,7 @@ combinations.
   <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
   ```
 
-###Add to homescreen splash screen
+###Add a splash screen
 
   iOS goes even further by displaying a startup image on webapp load, like the
 user would see during the loading period of a native app.
@@ -313,7 +312,7 @@ user would see during the loading period of a native app.
   <link rel="apple-touch-startup-image" href="img/l/splash.png">
   ```
 
-###Change homescreen title
+###Change the homescreen title
 
   iOS and Android will, by default, set the title of the homescreen icon to the
 title of the page. This can be overridden on iOS devices with the
@@ -323,7 +322,7 @@ apple-mobile-web-app-title tag.
   <meta name="apple-mobile-web-app-title" content="Luster">
   ```
 
-  Android, doesn't have a comparable alternative, it will be set to your pages &lt;title&gt;.
+  Android, which doesn't have a comparable alternative, will set the title to your page's &lt;title&gt;.
 
 ###Provide your own navigation
 
