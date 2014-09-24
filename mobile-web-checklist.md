@@ -376,8 +376,8 @@ offline and unable to connect to the app's servers.  If your app has data that
 a user may want to access when they aren't online, store it locally and sync
 when they come back online.
 
-https://developer.chrome.com/multidevice/android/installtohomescreen
-https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
+[Android](https://developer.chrome.com/multidevice/android/installtohomescreen)<br />
+[Apple](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html)
 
 ###Design for offline from the beginning.
 
