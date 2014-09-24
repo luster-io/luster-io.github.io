@@ -6,9 +6,11 @@ html
     meta(name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0")
   body
     nav
-      .logo Luster
-      a.impulse(href="http://impulse.luster.io") Impulse
-      a.impulse(href="/blog.html") Blog
+      .logo
+        a(href="/") Luster
+      .links
+        a.impulse(href="http://impulse.luster.io") Impulse
+        a.impulse(href="/blog.html") Blog
 
     != yield
     script(src="/prism.js")
