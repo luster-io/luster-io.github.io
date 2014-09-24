@@ -1,12 +1,10 @@
-  This is a list of guidelines I've been compiling over the last couple years while
-building high-performance mobile frontends.  Some of these are broadly
-applicable to any mobile website, some are specifically for people building
-apps.
+  This is a list of guidelines I've been compiling over the last couple years while building high-performance mobile frontends, as well as building the open source library [impulse](http://impulse.luster.io).  Some of these are broadly applicable to any mobile website, some are specifically for people building apps.
 
 I've broken this checklist down into three main categories:
-1) UX and UI
-2) Performance
-3) Homescreen and Offline
+
+  1. UX and UI
+  2. Performance
+  3. Homescreen and Offline
 
 ##UX and UI
 
@@ -207,14 +205,11 @@ you.
   It's much easier to build something that's performant from day one, than
   to build something that "works" and then trying to optimize it.  If something isn't performing, try to understand right away, before you have multiple confounding performance issues that are nearly impossible to debug, or have become integral to the way your app functions.
 
-###Only animate transforms, opacity, and filter.
+###Only animate transforms and opacity.
 
-  This is a big one.  Animating properties like width, height, box-shadow, or
-anything that isn't `transform` `opacity` or `filter` is not advised.
-Animating any other property will cause repaints and/or reflows that will tank
-performance.  Your desktop maybe be powerful enough to handle repainting your
-page as it changes 60 times per second, but your users' phones will not be,
-resulting in an app that feels sluggish and unresponsive.
+  This is a big one.  Animating properties like width, height, box-shadow, or anything that isn't `transform` or `opacity` is not advised. Animating any other property will cause repaints and/or reflows that will tank performance.Your desktop maybe be powerful enough to handle repainting your page as it changes 60 times per second, but your users' phones will not be, resulting in an app that feels sluggish and unresponsive.
+
+  This may change as mobile browsers are improved and optimized.  In the newest versions of Chrome for Android, if you specify a special meta tag, you can animate a lot of formerly slow properties at 60fps.  However, at the time of this writing it's still slow in most browsers, so it's probably best to stick to `transform` and `opacity` for now.
 
 ###Add translateZ or will-change to animated elements.
 
