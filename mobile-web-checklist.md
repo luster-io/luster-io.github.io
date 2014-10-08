@@ -49,7 +49,14 @@ neither are fixed over top of each other.  This technique also works well with
 the next technique for Preventing Overscroll.
 
   WARNING: This will cause the double tap at the top of mobile safari to no
-  longer scroll to the top of the page, since it's no longer the body scrolling.
+longer scroll to the top of the page, since it's no longer the body scrolling.
+
+  EDIT: Thanks to [@bjorn_js](https://twitter.com/bjorn_js) for pointing out that
+this technique also causes the scroll position to be lost when the back and forward
+button are pressed.
+
+  EDIT 2: Safari in iOS 8 fixes the header issue that this intended to solve.
+So this may very soon be an uncessary, bad idea.
 
 ###Always use momentum scrolling
 
@@ -101,14 +108,6 @@ user-select: none;
 if(navigator.userAgent.match(/Android/i))
   noContextMenu.addEventListener('contextmenu', function (e) { e.preventDefault() })
 ```
-
-###Always use momentum scrolling
-
-  Now that our scrolling is in a seperate container, it lost its momentum! To
-get it back, we have to add `-webkit-overflow-scrolling: touch;` to the
-container with `overflow: scroll` on it. This gives the element momentum
-scrolling, instead of ending the scroll the moment the user takes their finger
-off the page.
 
 ###Get rid of ugly grey tap highlight.
 <a href="/images/tap_highlight.png"><img class="right-align" src="/images/tap_highlight_small.png" /></a>
